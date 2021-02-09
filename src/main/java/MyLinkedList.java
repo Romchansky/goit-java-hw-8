@@ -1,7 +1,5 @@
-import org.w3c.dom.Node;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 public class MyLinkedList<E> {
 
@@ -38,21 +36,21 @@ public class MyLinkedList<E> {
         return unlink(findIndex(index));
     }
 
-    E unlink (NodeMyNode<E> deleteElement) {
+    E unlink(NodeMyNode<E> deleteElement) {
         final E element = deleteElement.item;
         final NodeMyNode<E> next = deleteElement.next;
         final NodeMyNode<E> prev = deleteElement.prev;
 
-        if(prev == null) {
+        if (prev == null) {
             first = next;
-        }else{
+        } else {
             prev.next = next;
             deleteElement.prev = null;
         }
 
-        if(next == null) {
+        if (next == null) {
             last = prev;
-        }else{
+        } else {
             next.prev = prev;
             deleteElement.next = null;
         }
@@ -63,9 +61,8 @@ public class MyLinkedList<E> {
     }
 
 
-
-    private boolean isCorrectIndex (int index) {
-        return index >=0 && index < size;
+    private boolean isCorrectIndex(int index) {
+        return index >= 0 && index < size;
     }
 
     public void clear() {
@@ -84,14 +81,14 @@ public class MyLinkedList<E> {
     }
 
     private void checkIndexElement(int index) {
-        if(!isCorrectIndex(index)){
+        if (!isCorrectIndex(index)) {
             throw new IndexOutOfBoundsException();
         }
     }
 
     NodeMyNode<E> findIndex(int index) {
         NodeMyNode<E> findingIndex = first;
-        for (int i = 0; i <index ; i++) {
+        for (int i = 0; i < index; i++) {
             findingIndex = findingIndex.next;
         }
         return findingIndex;
@@ -120,7 +117,7 @@ public class MyLinkedList<E> {
         System.out.println("-------------------------------------");
         System.out.println("[" + myLinkedList.get(1) + "]");
         System.out.println("-------------------------------------");
-        System.out.println( "[" + myLinkedList.size() + "]" );
+        System.out.println("[" + myLinkedList.size() + "]");
         System.out.println("-------------------------------------");
         System.out.println("[" + myLinkedList.remove(0) + "]");
         System.out.println("-------------------------------------");
