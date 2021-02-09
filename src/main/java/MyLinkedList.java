@@ -122,7 +122,7 @@ public class MyLinkedList<E> {
         System.out.println("-------------------------------------");
         System.out.println( "[" + myLinkedList.size() + "]" );
         System.out.println("-------------------------------------");
-        System.out.println(myLinkedList.remove(0));
+        System.out.println("[" + myLinkedList.remove(0) + "]");
         System.out.println("-------------------------------------");
         myLinkedList.clear();
         System.out.println(myLinkedList);
