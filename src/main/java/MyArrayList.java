@@ -11,6 +11,9 @@ public class MyArrayList<E> {
     }
 
     public void add(E value) {
+        if(value == null){
+            throw new NullPointerException();
+        }
         if (size >= element.length) {
             ensureNewSize();
         }
@@ -22,11 +25,12 @@ public class MyArrayList<E> {
         element = Arrays.copyOf(element, newCapacity);
     }
 
-    public void remove(int index) {
+    public E remove(int index) {
         for (int i = index; i < size; i++) {
             element[i] = element[i + 1];
         }
         element[size--] = null;
+        return null;
     }
 
     public void clear() {

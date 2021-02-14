@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class MyLinkedList<E> {
 
-    private static class NodeMyNode<E> {
+     static class NodeMyNode<E> {
         E item;
         NodeMyNode<E> next;
         NodeMyNode<E> prev;
@@ -16,8 +16,8 @@ public class MyLinkedList<E> {
     }
 
     private int size = 0;
-    private NodeMyNode<E> first;
-    private NodeMyNode<E> last;
+    public NodeMyNode<E> first;
+    public NodeMyNode<E> last;
 
     public void add(E element) {
         NodeMyNode<E> lastTemp = last;
