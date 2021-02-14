@@ -75,6 +75,5 @@ public class MyQueue<E> {
         System.out.println("-----------------------------------------");
         myQueue.clear();
         System.out.println(myQueue);
-
     }
 }
