@@ -5,12 +5,12 @@ public class MyHashMap<K, V> {
 
     private static final int DEFAULT_CAPACITY = 16;
     private static final float LOAD_FACTOR = 0.75f;
-    private myNode<K, V>[] buckets;
+    private MyNode<K, V>[] buckets;
     private int size;
     private int thresholdElement;
 
     MyHashMap() {
-        buckets = new myNode[DEFAULT_CAPACITY];
+        buckets = new MyNode[DEFAULT_CAPACITY];
     }
 
     private int indexHash(K key) {
@@ -24,13 +24,13 @@ public class MyHashMap<K, V> {
     public void put(K key, V value) {
         int indexHash = indexHash(key);
 
-        myNode<K, V> newMyNode = new myNode<>(key, value, null);
+        MyNode<K, V> newMyNode = new MyNode<>(key, value, null);
         if (buckets[indexHash] == null) {
             buckets[indexHash] = newMyNode;
             size++;
         } else {
-            myNode<K, V> previousNode = null;
-            myNode<K, V> currentNode = buckets[indexHash];
+            MyNode<K, V> previousNode = null;
+            MyNode<K, V> currentNode = buckets[indexHash];
             while (currentNode != null) {
                 if (currentNode.getKey().equals(key)) {
                     currentNode.setValue(value);
@@ -52,7 +52,7 @@ public class MyHashMap<K, V> {
     public V get(K key) {
         int indexHashGet = indexHash(key);
 
-        myNode<K, V> myNode = buckets[indexHashGet];
+        MyNode<K, V> myNode = buckets[indexHashGet];
         while (myNode != null) {
             if (myNode.getKey().equals(key)) {
                 return myNode.getValue();
@@ -66,8 +66,8 @@ public class MyHashMap<K, V> {
     public void remove(K key) {
         int indexHashRemove = indexHash(key);
 
-        myNode<K, V> previousNode = null;
-        myNode<K, V> myNode = buckets[indexHashRemove];
+        MyNode<K, V> previousNode = null;
+        MyNode<K, V> myNode = buckets[indexHashRemove];
         while (myNode != null) {
             if (myNode.getKey().equals(key)) {
                 if (previousNode == null) {
@@ -101,12 +101,12 @@ public class MyHashMap<K, V> {
         buckets = Arrays.copyOf(buckets, thresholdElement);
     }
 
-    static class myNode<K, V> {
+    static class MyNode<K, V> {
         private K key;
         private V value;
-        myNode<K, V> next;
+        MyNode<K, V> next;
 
-        myNode(K key, V value, myNode<K, V> next) {
+        MyNode(K key, V value, MyNode<K, V> next) {
             this.key = key;
             this.value = value;
             this.next = next;
@@ -128,11 +128,11 @@ public class MyHashMap<K, V> {
             this.value = value;
         }
 
-        public myNode<K, V> getNext() {
+        public MyNode<K, V> getNext() {
             return next;
         }
 
-        public void setNext(myNode<K, V> next) {
+        public void setNext(MyNode<K, V> next) {
             this.next = next;
         }
 
@@ -140,7 +140,7 @@ public class MyHashMap<K, V> {
         public final boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            myNode<?, ?> that = (myNode<?, ?>) o;
+            MyNode<?, ?> that = (MyNode<?, ?>) o;
             return Objects.equals(key, that.key);
         }
 
@@ -155,7 +155,7 @@ public class MyHashMap<K, V> {
     public void display() {
         for (int i = 0; i < buckets.length; i++) {
             if (buckets[i] != null) {
-                myNode<K, V> currentNode = buckets[i];
+                MyNode<K, V> currentNode = buckets[i];
                 while (currentNode != null) {
                     System.out.println("Key is: " + currentNode.getKey() + ", value is: " + currentNode.getValue());
                     currentNode = currentNode.getNext();
