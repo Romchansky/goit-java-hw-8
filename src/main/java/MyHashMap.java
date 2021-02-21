@@ -7,7 +7,7 @@ public class MyHashMap<K, V> {
     private static final float LOAD_FACTOR = 0.75f;
     private MyNode<K, V>[] buckets;
     private int size;
-    private int thresholdElement;
+
 
     MyHashMap() {
         buckets = new MyNode[DEFAULT_CAPACITY];
@@ -17,12 +17,16 @@ public class MyHashMap<K, V> {
         if (Objects.isNull(key)) {
             return 0;
         }
-        return key.hashCode() % DEFAULT_CAPACITY;
+        return Math.abs(key.hashCode()) % DEFAULT_CAPACITY;
     }
 
 
     public void put(K key, V value) {
         int indexHash = indexHash(key);
+
+        if (size > buckets.length * LOAD_FACTOR) {
+            resize();
+        }
 
         MyNode<K, V> newMyNode = new MyNode<>(key, value, null);
         if (buckets[indexHash] == null) {
@@ -34,18 +38,16 @@ public class MyHashMap<K, V> {
             while (currentNode != null) {
                 if (currentNode.getKey().equals(key)) {
                     currentNode.setValue(value);
-                    return;
+                    break;
                 }
-                previousNode = currentNode.getNext();
-                size++;
+                previousNode = currentNode;
+                currentNode = currentNode.getNext();
+
             }
             if (previousNode != null) {
                 previousNode.setNext(newMyNode);
             }
-
-            if (size >= thresholdElement) {
-                resize();
-            }
+            size++;
         }
     }
 
@@ -78,7 +80,8 @@ public class MyHashMap<K, V> {
                     return;
                 }
             }
-            previousNode = myNode.getNext();
+            previousNode = myNode;
+            myNode = myNode.getNext();
         }
     }
 
@@ -97,8 +100,8 @@ public class MyHashMap<K, V> {
 
 
     private void resize() {
-        thresholdElement = (int) (buckets.length * LOAD_FACTOR);
-        buckets = Arrays.copyOf(buckets, thresholdElement);
+        MyNode<K, V>[] oldBucket = Arrays.copyOf(buckets, buckets.length * 2);
+        buckets = oldBucket;
     }
 
     static class MyNode<K, V> {
@@ -151,11 +154,12 @@ public class MyHashMap<K, V> {
 
     }
 
-
     public void display() {
         for (int i = 0; i < buckets.length; i++) {
             if (buckets[i] != null) {
                 MyNode<K, V> currentNode = buckets[i];
+                System.out.println("-----------------------------------------");
+                System.out.println("Bucket is: " + i);
                 while (currentNode != null) {
                     System.out.println("Key is: " + currentNode.getKey() + ", value is: " + currentNode.getValue());
                     currentNode = currentNode.getNext();
@@ -170,11 +174,24 @@ public class MyHashMap<K, V> {
         myHashMap.put("Java", 1995);
         myHashMap.put("HTML", 554);
         myHashMap.put("JS", 1993);
+        myHashMap.put("Hello", 145);
+        myHashMap.put("Git", 954);
+        myHashMap.put("Swift", 93);
+        myHashMap.put("Kotlin", 1);
+        myHashMap.put("C#", 9);
+        myHashMap.put("C++", 23);
+        myHashMap.put("CSS", 44);
+        myHashMap.put("Java SE", 44);
+        myHashMap.put("Go", 44);
+        myHashMap.put("SQL", 44);
+        myHashMap.put("Python", 44);
         myHashMap.display();
         System.out.println("-----------------------------------------");
         System.out.println("Get value is: " + myHashMap.get("Java"));
         System.out.println("-----------------------------------------");
         System.out.println("Size is: " + myHashMap.size());
+        System.out.println("-----------------------------------------");
+        System.out.println("Capacity is: " + myHashMap.buckets.length);
         System.out.println("-----------------------------------------");
         myHashMap.remove("Java");
         myHashMap.display();
